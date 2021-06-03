@@ -122,3 +122,10 @@ myTest('renders all fields text when all fields are submitted.', async () => {
   expect(emailDisplay).toBeInTheDocument();
   messageDisplay = await screen.findByTestId("messageDisplay");
 });
+
+describe("Input Validation", () => {
+  myTest('renders ONE error message if user enters a bad email.', async () => {
+    userEvent.type(email(), "asdfckjasdf@email.");
+    expect((await errors()).length).toBe(1);
+  });
+});
