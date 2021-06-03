@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import DisplayComponent from './DisplayComponent';
 
+import useForm from "../hooks/useForm";
+
 const formData = {
   firstName: "",
   lastName: "",
@@ -17,7 +19,7 @@ const errorData = {
 
 const ContactForm = () => {
   const [displayData, setDisplayData] = useState(false);
-  const [form, setForm] = useState(formData);
+  const [form, handleForm] = useForm(formData);
   const [errors, setErrors] = useState(errorData);
 
   const errorHandling = (fieldName, fieldValue) => {
@@ -62,11 +64,8 @@ const ContactForm = () => {
       [e.target.name]: errorMessage
     });
 
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
-  }
+    handleForm(e);
+  };
 
   return (
     <div className="App">
